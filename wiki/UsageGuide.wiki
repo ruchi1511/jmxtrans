@@ -1,0 +1,111 @@
+#summary How to use jmxlogger
+
+= Introduction =
+
+jmxlogger is a tool which allows you to connect to any number of JVM's and query them for their attributes. The query language is based on JSON. The output is defined via OutputWriters. The context for the template is populated with a list of Result objects.
+
+= Details =
+
+This is an example configuration file which hits one server and makes 3 different queries against it for data.
+
+{{{
+{
+  "servers" : [ {
+    "port" : "1099",
+    "host" : "w2",
+    "queries" : [ {
+      "obj" : "java.lang:type=Memory",
+      "attr" : [ "HeapMemoryUsage", "NonHeapMemoryUsage" ],
+      "outputWriters" : [ {
+        "@class" : "com.googlecode.jmxlogger.model.output.StdOutWriter"
+      } ]
+    }, {
+      "obj" : "java.lang:name=CMS Old Gen,type=MemoryPool",
+      "attr" : [ "Usage" ],
+      "keys" : [ "committed" ],
+      "outputWriters" : [ {
+        "@class" : "com.googlecode.jmxlogger.model.output.StdOutWriter"
+      } ]
+    }, {
+      "obj" : "java.lang:name=ConcurrentMarkSweep,type=GarbageCollector",
+      "attr" : [ "LastGcInfo" ],
+      "outputWriters" : [ {
+        "@class" : "com.googlecode.jmxlogger.model.output.StdOutWriter",
+      } ]
+    } ],
+    "url" : "service:jmx:rmi:///jndi/rmi://w2:1099/jmxrmi"
+  } ]
+}
+}}}
+
+This query generates this object tree (Result.toString()) of results:
+
+{{{
+Result [attributeName=LastGcInfo.CMS Perm Gen,
+className=javax.management.openmbean.CompositeData,
+typeName=java.lang.management.MemoryUsage,
+description=java.lang.management.MemoryUsage, values={max=268435456,
+committed=105324544, init=21757952, used=74361848}]
+
+Result [attributeName=LastGcInfo.Code Cache,
+className=javax.management.openmbean.CompositeData,
+typeName=java.lang.management.MemoryUsage,
+description=java.lang.management.MemoryUsage, values={max=50331648,
+committed=11272192, init=2555904, used=10674944}]
+
+Result [attributeName=LastGcInfo.CMS Old Gen,
+className=javax.management.openmbean.CompositeData,
+typeName=java.lang.management.MemoryUsage,
+description=java.lang.management.MemoryUsage, values={max=3892314112,
+committed=1207959552, init=1207959552, used=223963368}]
+
+Result [attributeName=LastGcInfo.Par Eden Space,
+className=javax.management.openmbean.CompositeData,
+typeName=java.lang.management.MemoryUsage,
+description=java.lang.management.MemoryUsage, values={max=322174976,
+committed=322174976, init=322174976, used=0}]
+
+Result [attributeName=LastGcInfo.Par Survivor Space,
+className=javax.management.openmbean.CompositeData,
+typeName=java.lang.management.MemoryUsage,
+description=java.lang.management.MemoryUsage, values={max=40239104,
+committed=40239104, init=40239104, used=0}]
+
+Result [attributeName=LastGcInfo.CMS Perm Gen,
+className=javax.management.openmbean.CompositeData,
+typeName=java.lang.management.MemoryUsage,
+description=java.lang.management.MemoryUsage, values={max=268435456,
+committed=105324544, init=21757952, used=75486064}]
+
+Result [attributeName=LastGcInfo.Code Cache,
+className=javax.management.openmbean.CompositeData,
+typeName=java.lang.management.MemoryUsage,
+description=java.lang.management.MemoryUsage, values={max=50331648,
+committed=11272192, init=2555904, used=10674944}]
+
+Result [attributeName=LastGcInfo.CMS Old Gen,
+className=javax.management.openmbean.CompositeData,
+typeName=java.lang.management.MemoryUsage,
+description=java.lang.management.MemoryUsage, values={max=3892314112,
+committed=1207959552, init=1207959552, used=479223048}]
+
+Result [attributeName=LastGcInfo.Par Eden Space,
+className=javax.management.openmbean.CompositeData,
+typeName=java.lang.management.MemoryUsage,
+description=java.lang.management.MemoryUsage, values={max=322174976,
+committed=322174976, init=322174976, used=98439312}]
+
+Result [attributeName=LastGcInfo.Par Survivor Space,
+className=javax.management.openmbean.CompositeData,
+typeName=java.lang.management.MemoryUsage,
+description=java.lang.management.MemoryUsage, values={max=40239104,
+committed=40239104, init=40239104, used=9164520}]
+
+Result [attributeName=LastGcInfo,
+className=javax.management.openmbean.CompositeData,
+typeName=sun.management.ConcurrentMarkSweep.GcInfoCompositeType,
+description=CompositeType for GC info for ConcurrentMarkSweep,
+values={startTime=30446348, id=3, duration=1232,
+memoryUsageBeforeGc=javax.management.openmbean.TabularDataSupport(
+...
+}}}
