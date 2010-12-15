@@ -93,9 +93,25 @@ JMX has the ability to represent its data in a tree like structure.
 jmxtrans is smart enough to walk the tree and generate all of the
 Results.
 
+= Jmx Transformer =
+
+There is a main() class in the jar file that is useful for watching a directory and executing any .json files in that directory. The command line arguments are:
+
+{{{
+java -jar jmxtrans-all.jar -h
+usage: java -jar jmxtrans-all.jar
+ -e         Run endlessly. Default false.
+ -h         Help
+ -j <arg>   Directory where json configuration is stored. Default is .
+ -t <arg>   Maximum number of threads to start for processing each json
+            file. Default is 0.
+}}}
+
+If you have 100 .json files defined, it might be helpful to process multiple files at once instead of one at a time. This is another layer of multithreading on top of the existing Server/Query multithreading. If you pass the -e argument, the JVM will stay running. It will run through the list of .json files and then wait for one minute and do it again. If you add or modify a file while it is running, that file will be picked up. That way, you should be able to keep the process running indefinitely. If you kill the java process, it will wait until the currently executing threads are finished before stopping.
+
 = API =
 
-jmxtrans uses the amazing Jackson library to parse json data into a Java
+jmxtrans uses the amazing [http://jackson.codehaus.org/ Jackson library] to parse json data into a Java
 object model. This means that if you know a bit of java, it is possible
 to fully customize your own usage of jmxtrans to however you see fit.
 
