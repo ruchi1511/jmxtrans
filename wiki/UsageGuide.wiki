@@ -137,8 +137,7 @@ There are three configuration options that are all required in order for
 RRDToolWriter to work.
 
   * *templateFile* is the path to the rrd-template.xml file which configures
-the database schema. This file is primarily documented on the [http://oldwww.jrobin.org/api/templatesapi.html JRobin
-website] and it mirrors the configuration options for [http://oss.oetiker.ch/rrdtool/doc/rrdcreate.en.html 'rrdtool create'],
+the database schema. This file is primarily documented on the [http://oldwww.jrobin.org/api/templatesapi.html JRobin website] and it mirrors the configuration options for [http://oss.oetiker.ch/rrdtool/doc/rrdcreate.en.html 'rrdtool create'],
 so I won't go into too much detail here.
   * *outputFile* is the path to the rrd database file that will get automatically
 created if it doesn't already exist.
