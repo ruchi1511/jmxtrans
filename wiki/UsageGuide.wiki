@@ -138,8 +138,7 @@ to System.out. This makes debugging your Queries simple.
 == RRDTool Writer ==
 
 This is a slightly more complicated writer that relies heavily on 
-convention based configuration. Let's start off with an
-example configuration for it:
+convention based configuration. You *must* have rrdtool installed on the machine you are planning on running this on. Let's start off with an example configuration for for the OutputWriter:
 
 {{{
   "outputWriters" : [ {
@@ -150,8 +149,7 @@ example configuration for it:
   } ]
 }}}
 
-There are three configuration options that are all required in order for
-RRDToolWriter to work.
+There are three configuration options that are all required in order for RRDToolWriter to work.
 
   * *templateFile* is the path to the [http://code.google.com/p/jmxtrans/source/browse/trunk/heapmemory-rrd-template.xml heapmemory-rrd-template.xml] file which configures the database schema. This file is primarily documented on the [http://oldwww.jrobin.org/api/templatesapi.html JRobin website] and it mirrors the configuration options for [http://oss.oetiker.ch/rrdtool/doc/rrdcreate.en.html 'rrdtool create'], so I won't go into too much detail here.
   * *outputFile* is the path to the rrd database file that will get automatically created if it doesn't already exist.
