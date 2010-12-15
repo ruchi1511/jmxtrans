@@ -1,5 +1,7 @@
 #summary How to use jmxtrans
 
+<wiki:toc max_depth="2" />
+
 = Introduction =
 
 jmxtrans is a tool which allows you to connect to any number of JVM's
@@ -104,7 +106,7 @@ Take a look at the included HeapMemory.java and Tester.java classes. They
 show how you can either read a json file from disk into the object model 
 or create the object model by hand and execute it.
 
-= OutputWriter's =
+= OutputWriters =
 
 OutputWriter's are very powerful. They allow you to easily transform
 your Queries into whatever format you want. For example, the author is
