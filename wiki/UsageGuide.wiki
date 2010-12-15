@@ -1,12 +1,42 @@
-#summary How to use jmxlogger
+#summary How to use jmxtrans
 
 = Introduction =
 
-jmxlogger is a tool which allows you to connect to any number of JVM's and query them for their attributes. The query language is based on JSON. The output is defined via OutputWriters. The context for the template is populated with a list of Result objects.
+jmxtrans is a tool which allows you to connect to any number of JVM's
+and query them for their attributes without writing a single line of
+Java code. The query language is based on JSON. The output is defined
+via OutputWriters. The context for the output is populated with a list
+of Result objects.
+
+For a given json query file, there can be an unlimited number of servers
+defined within it. The servers define the hostname, port, username and
+password. Within each server, there can be an unlimited number of
+queries executed against it.
+
+Each Query executed against a server can output its results using any
+number of OutputWriters. jmxtrans includes several different
+OutputWriters that you can use.
+
+The Queries expect an object ("java.lang.type=Memory"), one or more
+attributes ["HeapMemoryUsage", "NonHeapMemoryUsage"], one or more keys
+["committed", "used"] and one or more OutputWriters to send the Results
+of the query to. The keys allow you to filter out exactly the information
+that you want.
+
+jmxtrans is also fully multithreaded. You specify the maximum number of
+threads that you want to start up for each part of the application. By
+default, no threads are started. It is possible to start threads for
+each Server and Query. Thus, you can specify that you want 10 threads to
+handle your 50 servers with the numServerThreads attribute to the Server
+object. Each server may have 10 queries defined. You can therefore, set
+the numQueryThreads to 2 to execute two queries against a server at a
+time.
 
 = Details =
 
-This is an example configuration file which hits one server and makes 3 different queries against it for data.
+This is an example configuration file which hits one server and makes 3
+different queries against it for data. The queries will be started up
+in threads so that at most, two queries are executing at the same time.
 
 {{{
 {
@@ -14,98 +44,121 @@ This is an example configuration file which hits one server and makes 3 differen
     "port" : "1099",
     "host" : "w2",
     "queries" : [ {
-      "obj" : "java.lang:type=Memory",
-      "attr" : [ "HeapMemoryUsage", "NonHeapMemoryUsage" ],
       "outputWriters" : [ {
-        "@class" : "com.googlecode.jmxlogger.model.output.StdOutWriter"
-      } ]
+        "@class" : "com.googlecode.jmxtrans.model.output.StdOutWriter"
+      } ],
+      "obj" : "java.lang:type=Memory",
+      "attr" : [ "HeapMemoryUsage", "NonHeapMemoryUsage" ]
     }, {
+      "outputWriters" : [ {
+        "@class" : "com.googlecode.jmxtrans.model.output.StdOutWriter"
+      } ],
       "obj" : "java.lang:name=CMS Old Gen,type=MemoryPool",
       "attr" : [ "Usage" ],
-      "keys" : [ "committed" ],
-      "outputWriters" : [ {
-        "@class" : "com.googlecode.jmxlogger.model.output.StdOutWriter"
-      } ]
+      "keys" : [ "committed" ]
     }, {
+      "outputWriters" : [ {
+        "@class" : "com.googlecode.jmxtrans.model.output.StdOutWriter"
+      } ],
       "obj" : "java.lang:name=ConcurrentMarkSweep,type=GarbageCollector",
       "attr" : [ "LastGcInfo" ],
-      "outputWriters" : [ {
-        "@class" : "com.googlecode.jmxlogger.model.output.StdOutWriter",
-      } ]
+      "keys" : [ "startTime", "memoryUsageAfterGc", "max" ]
     } ],
-    "url" : "service:jmx:rmi:///jndi/rmi://w2:1099/jmxrmi"
+    "numQueryThreads" : 2
   } ]
 }
 }}}
 
-This query generates this object tree (Result.toString()) of results:
+You can run the example json files by downloading the distribution and
+typing:
 
 {{{
+cd jmxtrans; java -jar jmxtrans-all.jar
+}}}
+
+This query generates an object tree (Result.toString()) of results (abbreviated):
+
+{{{
+...
 Result [attributeName=LastGcInfo.CMS Perm Gen,
 className=javax.management.openmbean.CompositeData,
 typeName=java.lang.management.MemoryUsage,
-description=java.lang.management.MemoryUsage, values={max=268435456,
-committed=105324544, init=21757952, used=74361848}]
-
-Result [attributeName=LastGcInfo.Code Cache,
-className=javax.management.openmbean.CompositeData,
-typeName=java.lang.management.MemoryUsage,
-description=java.lang.management.MemoryUsage, values={max=50331648,
-committed=11272192, init=2555904, used=10674944}]
-
-Result [attributeName=LastGcInfo.CMS Old Gen,
-className=javax.management.openmbean.CompositeData,
-typeName=java.lang.management.MemoryUsage,
-description=java.lang.management.MemoryUsage, values={max=3892314112,
-committed=1207959552, init=1207959552, used=223963368}]
-
-Result [attributeName=LastGcInfo.Par Eden Space,
-className=javax.management.openmbean.CompositeData,
-typeName=java.lang.management.MemoryUsage,
-description=java.lang.management.MemoryUsage, values={max=322174976,
-committed=322174976, init=322174976, used=0}]
-
-Result [attributeName=LastGcInfo.Par Survivor Space,
-className=javax.management.openmbean.CompositeData,
-typeName=java.lang.management.MemoryUsage,
-description=java.lang.management.MemoryUsage, values={max=40239104,
-committed=40239104, init=40239104, used=0}]
-
-Result [attributeName=LastGcInfo.CMS Perm Gen,
-className=javax.management.openmbean.CompositeData,
-typeName=java.lang.management.MemoryUsage,
-description=java.lang.management.MemoryUsage, values={max=268435456,
-committed=105324544, init=21757952, used=75486064}]
-
-Result [attributeName=LastGcInfo.Code Cache,
-className=javax.management.openmbean.CompositeData,
-typeName=java.lang.management.MemoryUsage,
-description=java.lang.management.MemoryUsage, values={max=50331648,
-committed=11272192, init=2555904, used=10674944}]
-
-Result [attributeName=LastGcInfo.CMS Old Gen,
-className=javax.management.openmbean.CompositeData,
-typeName=java.lang.management.MemoryUsage,
-description=java.lang.management.MemoryUsage, values={max=3892314112,
-committed=1207959552, init=1207959552, used=479223048}]
-
-Result [attributeName=LastGcInfo.Par Eden Space,
-className=javax.management.openmbean.CompositeData,
-typeName=java.lang.management.MemoryUsage,
-description=java.lang.management.MemoryUsage, values={max=322174976,
-committed=322174976, init=322174976, used=98439312}]
-
-Result [attributeName=LastGcInfo.Par Survivor Space,
-className=javax.management.openmbean.CompositeData,
-typeName=java.lang.management.MemoryUsage,
-description=java.lang.management.MemoryUsage, values={max=40239104,
-committed=40239104, init=40239104, used=9164520}]
-
-Result [attributeName=LastGcInfo,
-className=javax.management.openmbean.CompositeData,
-typeName=sun.management.ConcurrentMarkSweep.GcInfoCompositeType,
-description=CompositeType for GC info for ConcurrentMarkSweep,
-values={startTime=30446348, id=3, duration=1232,
-memoryUsageBeforeGc=javax.management.openmbean.TabularDataSupport(
+description=java.lang.management.MemoryUsage, values={max=268435456}]
 ...
 }}}
+
+The LastGcInfo attribute exploded into multiple Results. This is because
+JMX has the ability to represent its data in a tree like structure.
+jmxtrans is smart enough to walk the tree and generate all of the
+Results.
+
+= API =
+
+jmxtrans uses the amazing Jackson library to parse json data into a Java
+object model. This means that if you know a bit of java, it is possible
+to fully customize your own usage of jmxtrans to however you see fit.
+
+It also means that you can use Java'ish languages like Scala and Groovy
+to script jmxtrans to do whatever you want.
+
+Take a look at the included HeapMemory.java and Tester.java classes. They
+show how you can either read a json file from disk into the object model 
+or create the object model by hand and execute it.
+
+= OutputWriter's =
+
+OutputWriter's are very powerful. They allow you to easily transform
+your Queries into whatever format you want. For example, the author is
+using the included RRDToolWriter to write out rrd database files so that
+Cacti can read them in directly and create graphs. This allows sysadmins
+who may not be Java experts to quickly and easily add graphing of any
+Java system without writing code.
+
+== StdOutWriter ==
+
+This is a basic writer that just prints the list of Results from a Query
+to System.out. This makes debugging your Queries simple.
+
+== RRDToolWriter ==
+
+This is a slightly more complicated writer that relies heavily on 
+convention based configuration. Let's start off with an
+example configuration for it:
+
+{{{
+  "outputWriters" : [ {
+	"@class" : "com.googlecode.jmxtrans.model.output.RRDToolWriter",
+	"templateFile" : "heapmemory-rrd-template.xml",
+	"outputFile" : "target/heap.rrd",
+	"binaryPath" : "/opt/local/bin"
+  } ]
+}}}
+
+There are three configuration options that are all required in order for
+RRDToolWriter to work.
+
+  * *templateFile* is the path to the rrd-template.xml file which configures
+the database schema. This file is primarily documented on the [http://oldwww.jrobin.org/api/templatesapi.html JRobin
+website] and it mirrors the configuration options for [http://oss.oetiker.ch/rrdtool/doc/rrdcreate.en.html 'rrdtool create'],
+so I won't go into too much detail here.
+  * *outputFile* is the path to the rrd database file that will get automatically
+created if it doesn't already exist.
+  * *binaryPath* is the path to the directory that contains the rrdtool binary
+for your platform. That binary is used to create the database and write
+data to it. This isn't the most efficient way of doing things, but
+unfortunately is the easiest option using Java.
+
+RRDToolWriter will first read in the template.xml file and create a
+database based on that file. The datasources (aka: 'columns') must match
+up to the key's in the the Query. For example, if you have a Query that
+returns the keys 'commmitted' and 'max', then you will need to have two
+datasources named 'committed' and 'max'. This is the part where
+convention based configuration is employeed.
+
+Only the datasources which are defined in the template.xml file are used
+to lookup the keys as part of the Results. Thus, you can have a Query
+which returns Results that has many keys. You only need to define
+datasources for the keys that you want to store. Once you have created
+the rrd file, there is no way to modify the schema unless you use the
+rrdtool from the command line.
+
