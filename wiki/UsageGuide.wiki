@@ -106,7 +106,7 @@ Take a look at the included HeapMemory.java and Tester.java classes. They
 show how you can either read a json file from disk into the object model 
 or create the object model by hand and execute it.
 
-= OutputWriters =
+= Writing Results =
 
 OutputWriter's are very powerful. They allow you to easily transform
 your Queries into whatever format you want. For example, the author is
@@ -115,12 +115,12 @@ Cacti can read them in directly and create graphs. This allows sysadmins
 who may not be Java experts to quickly and easily add graphing of any
 Java system without writing code.
 
-== StdOutWriter ==
+== Standard Out Writer ==
 
 This is a basic writer that just prints the list of Results from a Query
 to System.out. This makes debugging your Queries simple.
 
-== RRDToolWriter ==
+== RRDTool Writer ==
 
 This is a slightly more complicated writer that relies heavily on 
 convention based configuration. Let's start off with an
