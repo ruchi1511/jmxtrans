@@ -69,8 +69,7 @@ in threads so that at most, two queries are executing at the same time.
 }
 }}}
 
-You can run the example json files by downloading the distribution and
-typing:
+You can run the example json files by [http://code.google.com/p/jmxtrans/downloads/list downloading the distribution] and typing:
 
 {{{
 cd jmxtrans; java -jar jmxtrans-all.jar
@@ -161,4 +160,3 @@ which returns Results that has many keys. You only need to define
 datasources for the keys that you want to store. Once you have created
 the rrd file, there is no way to modify the schema unless you use the
 rrdtool from the command line.
-
