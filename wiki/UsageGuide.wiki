@@ -115,8 +115,7 @@ jmxtrans uses the amazing [http://jackson.codehaus.org/ Jackson library] to pars
 object model. This means that if you know a bit of java, it is possible
 to fully customize your own usage of jmxtrans to however you see fit.
 
-It also means that you can use Java'ish languages like Scala and Groovy
-to script jmxtrans to do whatever you want.
+It also means that you can use Java'ish languages like Jython, Scala and Groovy to script jmxtrans to do whatever you want.
 
 Take a look at the included [http://code.google.com/p/jmxtrans/source/browse/#svn/trunk/src/com/googlecode/jmxtrans/example HeapMemory.java and Tester.java] classes. They
 show how you can either read a json file from disk into the object model 
