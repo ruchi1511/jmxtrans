@@ -81,13 +81,13 @@ Results.
 There is a main() class in the jar file that is useful for watching a directory and executing any .json files in that directory. The command line arguments are:
 
 {{{
-java -jar jmxtrans-all.jar -h
 usage: java -jar jmxtrans-all.jar
  -e         Run endlessly. Default false.
  -h         Help
  -j <arg>   Directory where json configuration is stored. Default is .
- -t <arg>   Maximum number of threads to start for processing each json
-            file. Default is 0.
+ -q <arg>   Path to quartz configuration file.
+ -s <arg>   Seconds between server job runs (not defined with cron).
+            Default: 60
 }}}
 
 If you have 100 .json files defined, it might be helpful to process multiple files at once instead of one at a time. This is another layer of multithreading on top of the existing Server/Query multithreading. If you pass the -e argument, the JVM will stay running. It will run through the list of .json files and then wait for one minute and do it again. If you add or modify a file while it is running, that file will be picked up. That way, you should be able to keep the process running indefinitely. If you kill the java process, it will wait until the currently executing threads are finished before stopping.
