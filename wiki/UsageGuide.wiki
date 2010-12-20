@@ -135,7 +135,7 @@ This is a slightly more complicated writer that relies heavily on convention bas
       } ]
     } ]
   } ]
-}}}}
+}}}
 
 There are three configuration options that are all required in order for RRDToolWriter to work.
 
