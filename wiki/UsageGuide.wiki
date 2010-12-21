@@ -14,7 +14,7 @@ For a given json file, there can be an unlimited number of servers defined withi
 
 Each Query executed against a server can output its results using any number of OutputWriters. jmxtrans includes several different OutputWriters that you can use.
 
-The Queries expect an object ("java.lang.type=Memory"), one or more attributes ["HeapMemoryUsage", "NonHeapMemoryUsage"], one or more keys ["committed", "used"] and one or more OutputWriters to send the Results of the query to. The keys allow you to filter out exactly the information that you want.
+The Queries expect an object ("java.lang.type=Memory"), one or more attributes ["HeapMemoryUsage", "NonHeapMemoryUsage"] and one or more OutputWriters to send the Results of the query to. The keys allow you to filter out exactly the information that you want.
 
 The JmxTransformer engine is fully multithreaded. You specify the maximum number of threads that you want to start up for each part of the application. By default, up to 10 servers are queried at the same time. It is also possible to have multiple threads for each query against a server. Thus, you can specify that you want 10 threads to
 handle your 50 servers. Each one of your servers may have defined 10 queries. You can therefore, set the numQueryThreads to 2 to execute two queries against a server at the same time.
@@ -48,8 +48,7 @@ This is an example configuration file which hits one server and makes 3 differen
         "@class" : "com.googlecode.jmxtrans.model.output.StdOutWriter"
       } ],
       "obj" : "java.lang:name=CMS Old Gen,type=MemoryPool",
-      "attr" : [ "Usage" ],
-      "keys" : [ "committed" ]
+      "attr" : [ "Usage" ]
     }, {
       "outputWriters" : [ {
         "@class" : "com.googlecode.jmxtrans.model.output.StdOutWriter",
@@ -57,8 +56,7 @@ This is an example configuration file which hits one server and makes 3 differen
         }
       } ],
       "obj" : "java.lang:name=ConcurrentMarkSweep,type=GarbageCollector",
-      "attr" : [ "LastGcInfo" ],
-      "keys" : [ "startTime", "memoryUsageAfterGc", "max" ]
+      "attr" : [ "LastGcInfo" ]
     } ],
     "numQueryThreads" : 2
   } ]
@@ -123,8 +121,7 @@ This is a slightly more complicated writer that relies heavily on convention bas
     "host" : "w2",
     "queries" : [ {
       "obj" : "java.lang:type=Memory",
-      "attr" : [ "HeapMemoryUsage" ],
-      "keys" : [ "max", "committed", "init", "used" ],
+      "attr" : [ "HeapMemoryUsage" ]
       "outputWriters" : [ {
         "@class" : "com.googlecode.jmxtrans.model.output.RRDToolWriter",
         "settings" : {
