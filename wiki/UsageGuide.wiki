@@ -14,7 +14,7 @@ For a given json file, there can be an unlimited number of servers defined withi
 
 Each Query executed against a server can output its results using any number of OutputWriters. jmxtrans includes several different OutputWriters that you can use.
 
-The Queries expect an object ("java.lang.type=Memory"), one or more attributes ["HeapMemoryUsage", "NonHeapMemoryUsage"] and one or more OutputWriters to send the Results of the query to. The keys allow you to filter out exactly the information that you want.
+The Queries expect an object ("java.lang.type=Memory"), zero or more attributes ["HeapMemoryUsage", "NonHeapMemoryUsage"] and one or more OutputWriters to send the Results of the query to. If you don't specify any attributes, then it will get all of them. You can also specify a star within an object name to query dynamically generated object names.
 
 The JmxTransformer engine is fully multithreaded. You specify the maximum number of threads that you want to start up for each part of the application. By default, up to 10 servers are queried at the same time. It is also possible to have multiple threads for each query against a server. Thus, you can specify that you want 10 threads to
 handle your 50 servers. Each one of your servers may have defined 10 queries. You can therefore, set the numQueryThreads to 2 to execute two queries against a server at the same time.
@@ -73,10 +73,7 @@ This query generates an object tree (Result.toString()) of results that are prin
 
 {{{
 ...
-Result [attributeName=LastGcInfo.CMS Perm Gen,
-className=javax.management.openmbean.CompositeData,
-typeName=java.lang.management.MemoryUsage,
-description=java.lang.management.MemoryUsage, values={max=268435456}]
+Result [attributeName=LastGcInfo.Par Eden Space, className=sun.management.GarbageCollectorImpl, typeName=name=ConcurrentMarkSweep,type=GarbageCollector, description=Information on the management interface of the MBean, values={max=322174976, committed=322174976, init=322174976, used=57743544}, epoch=1292975772610]
 ...
 }}}
 
@@ -140,9 +137,9 @@ There are three configuration options that are all required in order for RRDTool
   * *outputFile* is the path to the rrd database file that will get automatically created if it doesn't already exist.
   * *binaryPath* is the path to the directory that contains the rrdtool binary for your platform. That binary is used to create the database and write data to it. This isn't the most efficient way of doing things, but unfortunately is the easiest option using Java.
 
-RRDToolWriter will first read in the template.xml file and create a database based on that file. The datasources (aka: 'columns') must match up to the key's in the the Query. For example, if you have a Query that returns the keys 'commmitted' and 'max', then you will need to have two datasources named 'committed' and 'max'. This is the part where convention based configuration is employeed.
+RRDToolWriter will first read in the template.xml file and create a database based on that file. The datasources (aka: 'columns') must match up to the values in the the Results. For example, if you have a Query that returns a Result that has the values 'commmitted' and 'max', then you will need to have two datasources named 'committed' and 'max'. This is the part where convention based configuration is employeed.
 
-Only the datasources which are defined in the template.xml file are used to lookup the keys as part of the Results. Thus, you can have a Query which returns Results that has many keys. You only need to define datasources for the keys that you want to store. Once you have created the rrd file, there is no way to modify the schema unless you use the rrdtool from the command line.
+Only the datasources which are defined in the template.xml file are used to lookup the values as part of the Results. Thus, you can have a Query which returns Results that has many values. You only need to define datasources for the values that you want to store. Once you have created the rrd file, there is no way to modify the schema unless you use the rrdtool from the command line.
 
 == Graphite Writer ==
 
