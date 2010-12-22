@@ -81,7 +81,8 @@ Result [attributeName=LastGcInfo.Par Eden Space,
 className=sun.management.GarbageCollectorImpl,
 typeName=name=ConcurrentMarkSweep,type=GarbageCollector, 
 description=Information on the management interface of the MBean, 
-values={max=322174976, committed=322174976, init=322174976, used=57743544}, epoch=1292975772610]
+values={max=322174976, committed=322174976, init=322174976, used=57743544}, 
+epoch=1292975772610]
 ...
 }}}
 
