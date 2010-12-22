@@ -39,13 +39,17 @@ This is an example configuration file which hits one server and makes 3 differen
     "host" : "w2",
     "queries" : [ {
       "outputWriters" : [ {
-        "@class" : "com.googlecode.jmxtrans.model.output.StdOutWriter"
+        "@class" : "com.googlecode.jmxtrans.model.output.StdOutWriter",
+        "settings" : {
+        }
       } ],
       "obj" : "java.lang:type=Memory",
       "attr" : [ "HeapMemoryUsage", "NonHeapMemoryUsage" ]
     }, {
       "outputWriters" : [ {
-        "@class" : "com.googlecode.jmxtrans.model.output.StdOutWriter"
+        "@class" : "com.googlecode.jmxtrans.model.output.StdOutWriter",
+        "settings" : {
+        }
       } ],
       "obj" : "java.lang:name=CMS Old Gen,type=MemoryPool",
       "attr" : [ "Usage" ]
@@ -118,7 +122,7 @@ This is a slightly more complicated writer that relies heavily on convention bas
     "host" : "w2",
     "queries" : [ {
       "obj" : "java.lang:type=Memory",
-      "attr" : [ "HeapMemoryUsage" ]
+      "attr" : [ "HeapMemoryUsage", "NonHeapMemoryUsage" ],
       "outputWriters" : [ {
         "@class" : "com.googlecode.jmxtrans.model.output.RRDToolWriter",
         "settings" : {
@@ -129,6 +133,7 @@ This is a slightly more complicated writer that relies heavily on convention bas
       } ]
     } ]
   } ]
+}
 }}}
 
 There are three configuration options that are all required in order for RRDToolWriter to work.
