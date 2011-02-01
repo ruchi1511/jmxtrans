@@ -3,6 +3,8 @@
 
 <wiki:toc max_depth="2" />
 
+<wiki:gadget url="http://jmxtrans.googlecode.com/svn/wiki/adsense.xml" border="0" width="480" height="60" />
+
 = Introduction =
 
 jmxtrans is a tool which allows you to connect to any number of JVM's and query them for their attributes without writing a single line of Java code. The query language is based on JSON. The output is defined via OutputWriters. The context for the output is populated with a list of Result objects.
