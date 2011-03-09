@@ -9,6 +9,20 @@
 
 jmxtrans is a tool which allows you to connect to any number of JVM's and query them for their attributes without writing a single line of Java code. The query language is based on JSON. The output is defined via OutputWriters. The context for the output is populated with a list of Result objects.
 
+== Enabling JMX for a JVM ==
+
+In order to use jmxtrans, you must first enable Java Management Extensions (JMX) on your Java Virtual Machine (JVM). I'm not going to cover that here in depth, however I will point you at some documentation.
+
+  * [http://download.oracle.com/javase/1.5.0/docs/guide/management/agent.html JMX Agent Configuration]
+  * [http://download.oracle.com/javase/1.5.0/docs/guide/management/ Monitoring and Management]
+
+For applications behind a firewall that do not need security, add these arguments to the startup of the JVM in order to enable remote JMX connections:
+{{{
+-Dcom.sun.management.jmxremote.port=1105 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false
+}}}
+
+You should set the port number to any free port number on your machine that is above 1024.
+
 == Engine Mode ==
 There are two primary modes for using jmxtrans. The first is to use the JmxTransformer engine included with the distribution. This engine will read a directory of .json files, process them and then create 'jobs' to execute on a [http://www.quartz-scheduler.org/docs/tutorials/crontrigger.html cron-like schedule]. Each job maps to a server that you would like to query jmx attributes on. Therefore, you can setup a complex query schedule for each server by setting the cronExpression field on the Server object (by default it is every minute).
 
