@@ -44,7 +44,7 @@ The core of the api is implemented as mostly static methods in the [http://code.
 
 It also means that you can use Java'ish languages like Jython, Scala and Groovy to script jmxtrans to do whatever you want.
 
-Take a look at the included [http://code.google.com/p/jmxtrans/source/browse/#svn/trunk/src/com/googlecode/jmxtrans/example example classes]. They show how you can either read a json file from disk into the object model or create the object model by hand and execute it.
+Take a look at the included [http://code.google.com/p/jmxtrans/source/browse/#svn/trunk/src/com/googlecode/jmxtrans/example example classes]. They show how you can either read a json file from disk into the object model or create the object model by hand and execute it. There is also examples of using wildcards, which jmxtrans fully supports with JDK 6.
 
 = Configuration Details =
 
