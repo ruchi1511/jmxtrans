@@ -129,9 +129,41 @@ If you add, remove or modify a file while the process is running, that change wi
 
 OutputWriter's are very powerful. They allow you to easily transform your Queries into whatever format you want. For example, the author is using the included RRDToolWriter to write out rrd database files so that Cacti can read them in directly and create graphs. This allows sysadmins who may not be Java experts to quickly and easily add graphing of any Java system without writing code.
 
+'''The recommended way to use jmxtrans is to use the Graphite Writer over the RRDToolWriter'''. The reason is that Graphite lends itself more easily to a schemaless database. The issue is that JMX produces a fairly complicated set of data and defining how that data should be stored can be difficult. Graphite/jmxtrans gets around this by taking advantage of the fact that Graphite expects its data columns in a dot notation and doesn't require defining any sort of schema in advance. On the other hand RRD requires a schema to be defined and that can be a pain to setup (even though JMX trans will generate most of the configuration information for you by turning on debugging). That said, once you have the RRD schema, you still need to configure Cacti to read that schema and that is also a pain. Since this tool aims to keep things simple, your best shot at getting pretty graphs setup in a short amount of time is to use the Graphite Writer.
+
 == Standard Out Writer ==
 
 This is a basic writer that just prints the list of Results from a Query to System.out. This makes debugging your Queries a lot easier.
+
+== Graphite Writer ==
+
+[http://graphite.wikidot.com/ Graphite] is a very cool graphing mechanism that is similar to Cacti, but far easier to setup since you don't have to become a RRD expert. All you have to do to configure jmxtrans to use Graphite is to setup the GraphiteWriter with a host and port and the writer will send what ever you want to graph to it.
+
+Here is an example .json file that outputs HeapMemoryUsage and NonHeapMemoryUsage directly to graphite:
+
+{{{
+{
+  "servers" : [ {
+    "port" : "1099",
+    "host" : "w2",
+    "queries" : [ {
+      "obj" : "java.lang:type=Memory",
+      "attr" : [ "HeapMemoryUsage", "NonHeapMemoryUsage" ],
+      "outputWriters" : [ {
+        "@class" : "com.googlecode.jmxtrans.model.output.GraphiteWriter",
+        "settings" : {
+          "port" : 2003,
+          "host" : "192.168.192.133"
+        }
+      } ]
+    } ]
+  } ]
+}
+}}}
+
+This produces the following screen shot. It was not necessary to tell graphite anything about the 'tree' that was created as it was generated automatically by GraphiteWriter. [http://code.google.com/p/jmxtrans/source/browse/trunk/src/com/googlecode/jmxtrans/example/Graphite.java This is the example Java code to generate] the above json.
+
+http://jmxtrans.googlecode.com/svn/wiki/render.png
 
 == RRDTool Writer ==
 
@@ -171,33 +203,3 @@ There are three configuration options that are all required in order for RRDTool
 RRDToolWriter will first read in the template.xml file and create a database based on that file. The datasources (aka: 'columns') must match up to the values in the the Results. For example, if you have a Query that returns a Result that has the values 'commmitted' and 'max', then you will need to have two datasources named 'committed' and 'max'. This is the part where convention based configuration is employed. Enable debug mode to see what the names of the generated columns are. They are shortened because datasources have a maximum length of 20 characters. You may need to throw away your first couple of rrd files in order to get the schema (datasource name mapping) correct.
 
 Only the datasources which are defined in the template.xml file are used to lookup the values as part of the Results. Thus, you can have a Query which returns Results that has many values. You only need to define datasources for the values that you want to store. Once you have created the rrd file, there is no way to modify the schema unless you use the rrdtool from the command line.
-
-== Graphite Writer ==
-
-[http://graphite.wikidot.com/ Graphite] is a very cool graphing mechanism that is similar to Cacti, but far easier to setup since you don't have to become a RRD expert. All you have to do to configure jmxtrans to use Graphite is to setup the GraphiteWriter with a host and port and the writer will send what ever you want to graph to it.
-
-Here is an example .json file that outputs HeapMemoryUsage and NonHeapMemoryUsage directly to graphite:
-
-{{{
-{
-  "servers" : [ {
-    "port" : "1099",
-    "host" : "w2",
-    "queries" : [ {
-      "obj" : "java.lang:type=Memory",
-      "attr" : [ "HeapMemoryUsage", "NonHeapMemoryUsage" ],
-      "outputWriters" : [ {
-        "@class" : "com.googlecode.jmxtrans.model.output.GraphiteWriter",
-        "settings" : {
-          "port" : 2003,
-          "host" : "192.168.192.133"
-        }
-      } ]
-    } ]
-  } ]
-}
-}}}
-
-This produces the following screen shot. It was not necessary to tell graphite anything about the 'tree' that was created as it was generated automatically by GraphiteWriter. [http://code.google.com/p/jmxtrans/source/browse/trunk/src/com/googlecode/jmxtrans/example/Graphite.java This is the example Java code to generate] the above json.
-
-http://jmxtrans.googlecode.com/svn/wiki/render.png
