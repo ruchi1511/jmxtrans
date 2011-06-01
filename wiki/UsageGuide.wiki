@@ -114,6 +114,7 @@ usage: java -jar jmxtrans-all.jar
  -e         Run endlessly. Default false.
  -h         Help
  -j <arg>   Directory where json configuration is stored. Default is .
+ -f <arg>   A single json file to execute.
  -q <arg>   Path to quartz configuration file.
  -s <arg>   Seconds between server job runs (not defined with cron).
             Default: 60
