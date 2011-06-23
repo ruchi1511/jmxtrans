@@ -85,26 +85,6 @@ This is an example configuration file which hits one server and makes 3 differen
 }
 }}}
 
-You can run the example json files by [http://code.google.com/p/jmxtrans/downloads/list downloading the distribution] and typing:
-
-{{{
-cd jmxtrans; java -jar jmxtrans-all.jar
-}}}
-
-This query generates an object tree (Result.toString()) of results that are printed out to StdOut (abbreviated):
-
-{{{
-...
-Result [attributeName=LastGcInfo.Par Eden Space, 
-className=sun.management.GarbageCollectorImpl,
-typeName=name=ConcurrentMarkSweep,type=GarbageCollector, 
-values={max=322174976, committed=322174976, init=322174976, used=57743544}, 
-epoch=1292975772610]
-...
-}}}
-
-The LastGcInfo attribute exploded into multiple Results. This is because JMX has the ability to represent its data in a tree like structure. jmxtrans is smart enough to walk the tree and generate all of the Results.
-
 = Jmx Transformer =
 
 There is a main() class in the jar file that is useful for watching a directory and executing any .json files in that directory. The command line arguments are:
@@ -124,7 +104,9 @@ If you pass the -e argument, the JVM will stay running forever. You may want to 
 
 The engine will run through the list of .json files that it finds in the -j directory. 
 
-If you add, remove or modify a file while the process is running, that change will be picked up and jobs will either be started, removed or restarted. That way, you should be able to keep the process running indefinitely and only have to restart to run a new version of jmxtrans.
+The -f option is like the -j option, but you pass in the path to a single .json file.
+
+If you add, remove or modify a file while the process is running with -e, that change will be picked up and jobs will either be started, removed or restarted. That way, you should be able to keep the process running indefinitely and only have to restart to run a new version of jmxtrans.
 
 = Writing Results =
 
