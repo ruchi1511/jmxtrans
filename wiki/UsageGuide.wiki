@@ -148,7 +148,7 @@ This produces the following screen shot. It was not necessary to tell graphite a
 
 http://jmxtrans.googlecode.com/svn/wiki/render.png
 
-== KeyOut Writer ==
+== Key Out Writer ==
 
 This simple writer shares a lot of the code with the GraphiteWriter. Instead of writing data to Graphite, it writes the same data to the specified outputFile in tab delimited format. This way you can write another script which will monitor the data as it is written to the file. There are three settings for this writer: outputFile (the file to write to), maxLogFileSize (the max size before rolling the file) and maxLogBackupFiles (max number of rolled files).
 
