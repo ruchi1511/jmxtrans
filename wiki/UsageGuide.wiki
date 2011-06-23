@@ -148,6 +148,42 @@ This produces the following screen shot. It was not necessary to tell graphite a
 
 http://jmxtrans.googlecode.com/svn/wiki/render.png
 
+== KeyOut Writer ==
+
+This simple writer shares a lot of the code with the GraphiteWriter. Instead of writing data to Graphite, it writes the same data to the specified outputFile in tab delimited format. This way you can write another script which will monitor the data as it is written to the file. There are three settings for this writer: outputFile (the file to write to), maxLogFileSize (the max size before rolling the file) and maxLogBackupFiles (max number of rolled files).
+
+{{{
+{
+  "servers" : [ {
+    "port" : "1099",
+    "host" : "w2",
+    "queries" : [ {
+      "outputWriters" : [ {
+        "@class" : "com.googlecode.jmxtrans.model.output.KeyOutWriter",
+        "settings" : {
+          "outputFile" : "/tmp/keyout2.txt",
+          "maxLogFileSize" : "10MB",
+          "maxLogBackupFiles" : 200,
+          "debug" : true,
+          "typeNames" : ["name"]
+        }
+      } ],
+      "obj" : "net.sf.ehcache:type=CacheStatistics,*",
+      "attr" : [ "CacheHits", "CacheMisses", "ObjectCount" ]
+    }
+     ]
+  } ]
+}
+}}}
+
+Example output from the configuration above:
+
+{{{
+w2_1099.net_sf_ehcache_management_CacheStatistics.longTermCache.CacheHits	487239	1308855201
+w2_1099.net_sf_ehcache_management_CacheStatistics.longTermCache.CacheMisses	30164	1308855201
+w2_1099.net_sf_ehcache_management_CacheStatistics.longTermCache.ObjectCount	4270	1308855201
+}}}
+
 == RRDTool Writer ==
 
 This is a slightly more complicated writer that relies heavily on convention based configuration. You *must* have rrdtool installed on the machine you are planning on running this on. Let's start off with an example configuration for for the OutputWriter:
