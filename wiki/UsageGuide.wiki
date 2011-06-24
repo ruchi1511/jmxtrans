@@ -46,6 +46,35 @@ It also means that you can use Java'ish languages like Jython, Scala and Groovy 
 
 Take a look at the included [http://code.google.com/p/jmxtrans/source/browse/#svn/trunk/src/com/googlecode/jmxtrans/example example classes]. They show how you can either read a json file from disk into the object model or create the object model by hand and execute it. There is also examples of using wildcards, which jmxtrans fully supports with JDK 6.
 
+= Running Jmx Transformer =
+
+There is a jmxtrans.sh script included with the distribution. This should be used to start the application running. If you read through the script, you will see that all of the options are customizable by exporting environment variables without having to edit the .sh script. You can even create a jmxtrans.conf file to put the options into so that you don't need to setup environment variables yourself.
+
+To run the jmxtrans:
+  * ./jmxtrans.sh start [optional path to one json file]
+
+To stop jmxtrans:
+  * ./jmxtrans.sh stop
+
+Options you may want to configure:
+  * JSON_DIR - Location of your .json files. Defaults to '.'
+  * LOG_DIR - Location of where the log files get written. Defaults to '.'
+  * SECONDS_BETWEEN_RUNS - How often jobs run. Defaults to 60.
+
+= Installing the Debian =
+
+There is a .deb file which you can download and install on an Ubuntu/Debian machine. This makes setting up the application trivial and is highly recommended. It also makes upgrades painless as well.
+
+To install it:
+  # Download the .deb package.
+  # As root: dpkg -i jmxtrans_155-1_amd64.deb [replace the version number]
+  # Enter in the JVM heap size you want: 512 (megs) is the default.
+
+  * The application is installed in: /usr/share/jmxtrans
+  * Configuration options are stored in: /etc/default/jmxtrans
+  * There is an init script in: /etc/init.d/jmxtrans
+  * Put your .json files into: /var/lib/jmxtrans
+
 = Configuration Details =
 
 This is an example configuration file which hits one server and makes 3 different queries against it for data. The queries will be started up in threads so that at most, two queries are executing at the same time.
@@ -84,29 +113,6 @@ This is an example configuration file which hits one server and makes 3 differen
   } ]
 }
 }}}
-
-= Jmx Transformer =
-
-There is a main() class in the jar file that is useful for watching a directory and executing any .json files in that directory. The command line arguments are:
-
-{{{
-usage: java -jar jmxtrans-all.jar
- -e         Run endlessly. Default false.
- -h         Help
- -j <arg>   Directory where json configuration is stored. Default is .
- -f <arg>   A single json file to execute.
- -q <arg>   Path to quartz configuration file.
- -s <arg>   Seconds between server job runs (not defined with cron).
-            Default: 60
-}}}
-
-If you pass the -e argument, the JVM will stay running forever. You may want to background the process and redirect stdout to a file so you can check the execution progress.
-
-The engine will run through the list of .json files that it finds in the -j directory. 
-
-The -f option is like the -j option, but you pass in the path to a single .json file.
-
-If you add, remove or modify a file while the process is running with -e, that change will be picked up and jobs will either be started, removed or restarted. That way, you should be able to keep the process running indefinitely and only have to restart to run a new version of jmxtrans.
 
 = Writing Results =
 
