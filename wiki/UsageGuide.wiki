@@ -51,10 +51,10 @@ Take a look at the included [http://code.google.com/p/jmxtrans/source/browse/#sv
 There is a jmxtrans.sh script included with the distribution. This should be used to start the application running. If you read through the script, you will see that all of the options are customizable by exporting environment variables without having to edit the .sh script. You can even create a jmxtrans.conf file to put the options into so that you don't need to setup environment variables yourself.
 
 To run the jmxtrans:
-  * ./jmxtrans.sh start [optional path to one json file]
+  * {{{./jmxtrans.sh start [optional path to one json file]}}}
 
 To stop jmxtrans:
-  * ./jmxtrans.sh stop
+  * {{{./jmxtrans.sh stop}}}
 
 Options you may want to configure:
   * JSON_DIR - Location of your .json files. Defaults to '.'
@@ -67,7 +67,7 @@ There is a .deb file which you can download and install on an Ubuntu/Debian mach
 
 To install it:
   # Download the .deb package.
-  # As root: dpkg -i jmxtrans_155-1_amd64.deb [replace the version number]
+  # As root: {{{dpkg -i jmxtrans_155-1_amd64.deb}}} (replace the version number)
   # Enter in the JVM heap size you want: 512 (megs) is the default.
 
   * The application is installed in: /usr/share/jmxtrans
