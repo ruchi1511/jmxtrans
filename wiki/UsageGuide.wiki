@@ -114,6 +114,8 @@ This is an example configuration file which hits one server and makes 3 differen
 }
 }}}
 
+Please keep reading for more examples of how to configure the json in order to get the results you want.
+
 = Writing Results =
 
 OutputWriter's are very powerful. They allow you to easily transform your Queries into whatever format you want. This allows sysadmins who may not be Java experts to quickly and easily add graphing of any Java system without writing code.
@@ -193,6 +195,8 @@ w2_1099.net_sf_ehcache_management_CacheStatistics.longTermCache.CacheHits	487239
 w2_1099.net_sf_ehcache_management_CacheStatistics.longTermCache.CacheMisses	30164	1308855201
 w2_1099.net_sf_ehcache_management_CacheStatistics.longTermCache.ObjectCount	4270	1308855201
 }}}
+
+One thing to mention here is the use of the typeNames key in the configuration. What this does is it narrows a query down to the essentials. What I mean is that the obj= portion of the query has a * in it. The * represents all of the various cache names. So, by using a typeName of 'name', we are selecting out the value of that type name and using it as part of the key. Thus, "longTermCache" is the value of of the *.
 
 == RRDTool Writer ==
 
