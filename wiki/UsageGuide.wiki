@@ -114,6 +114,36 @@ This is an example configuration file which hits one server and makes 3 differen
 }
 }}}
 
+== Optional Parameters ==
+
+Add resultAlais to your queries array to customize the output of the StdOutWriter and GraphiteWriter.
+
+{{{
+"obj" : "net.sf.ehcache:type=CacheStatistics,*",
+"resultAlias": "cache"
+}}}
+
+Original output:
+
+{{{
+w2_1099.net_sf_ehcache_management_CacheStatistics.longTermCache.CacheHits
+}}}
+
+To get turned into:
+
+{{{
+w2_1099.cache.longTermCache.CacheHits
+}}}
+
+----
+
+Add this to your servers array to customize the server name:
+
+{{{
+"host" : "w2",
+"alias": "myserver"
+}}}
+
 Please keep reading for more examples of how to configure the json in order to get the results you want.
 
 = Writing Results =
