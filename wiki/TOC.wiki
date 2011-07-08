@@ -3,6 +3,7 @@
 
   * [IntroductionToJmxTrans Introduction To JmxTrans]
   * [Installation]
+  * [Queries]
   * [OutputWriters]
     * [StdoutWriter]
     * [GraphiteWriter]
