@@ -29,7 +29,7 @@ The second mode for jmxtrans is to act as an API to build your own application f
 
 jmxtrans uses the amazing [http://jackson.codehaus.org/ Jackson library] to parse json data into a Java object model. This model is primarily represented by the [http://code.google.com/p/jmxtrans/source/browse/#svn%2Ftrunk%2Fsrc%2Fcom%2Fgooglecode%2Fjmxtrans%2Fmodel JmxProcess, Server, Query, Result] objects. This means that if you know a bit of java, it is possible to fully customize your own usage of jmxtrans to however you see fit.
 
-The core of the api is implemented as mostly static methods in the [http://code.google.com/p/jmxtrans/source/browse/trunk/src/com/googlecode/jmxtrans/util/JmxUtils.java JmxUtils class]. You effectively Pass in a Server object with a bunch of Queries and get back a list of Results. How you process those results is up to you.
+The core of the api is implemented as mostly static methods in the [http://code.google.com/p/jmxtrans/source/browse/trunk/src/com/googlecode/jmxtrans/util/JmxUtils.java JmxUtils class]. You pass in a Server object with a bunch of Queries and get back a list of Results. How you process those results is up to you.
 
 This also means that you can use Java'ish languages like Jython, Scala and Groovy to script jmxtrans to do whatever you want.
 
