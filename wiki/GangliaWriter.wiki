@@ -8,7 +8,11 @@ jmxtrans has a writer that connects to a gmond (not gmetad!) process and writes 
 
 [http://jmxtrans.googlecode.com/svn/wiki/ganglia.png]
 
-As described in the (borrowed) image above, you will need jmxtrans to write to a gmond instance somewhere. Since I support host spoofing, whatever is set as {{{host}}} or optionally {{{alias}}} is what is sent to Ganglia as the host. Thus, jmxtrans is effectively acting like a gmond instance itself. This also means that jmxtrans doesn't have to run on the same machine as the gmond instance.
+As described in the (borrowed) image above, you can see that jmxtrans is writing data to a gmond instance. Since I support host spoofing, whatever is set as {{{host}}} or optionally {{{alias}}} is what is sent to Ganglia as the host. Thus, jmxtrans is effectively acting like a gmond instance itself. This also means that jmxtrans doesn't have to run on the same machine as the gmond instance.
+
+If there is demand, future versions of this plugin can support writing to multicast just like the other gmond instances do. That said, looking at Hadoop's support of Ganglia, it is just writing straight UDP, so I suspect this isn't going to be a high demand feature.
+
+= Example Configuration =
 
 {{{
 {
