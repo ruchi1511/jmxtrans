@@ -3,7 +3,7 @@
 
   * [IntroductionToJmxTrans Introduction To JmxTrans]
   * [Installation]
-  * [Writers]
+  * [OutputWriters]
     * [StdoutWriter]
     * [GraphiteWriter]
     * [GangliaWriter]
