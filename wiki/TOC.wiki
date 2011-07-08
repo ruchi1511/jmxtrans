@@ -11,4 +11,3 @@
     * [RRDWriter]
     * [KeyOutWriter]
   * [BestPractices Best Practices]
-  * [FrequentlyAskedQuestions Frequently Asked Questions]
