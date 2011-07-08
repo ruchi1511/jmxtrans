@@ -17,7 +17,9 @@ The results of the queries are processed by Java classes called OutputWriters. T
 
 There are two primary modes for using jmxtrans. The first is to use the JmxTransformer engine included with the distribution. This engine will read a directory of .json files, process them and then create 'jobs' to execute on a [http://www.quartz-scheduler.org/docs/tutorials/crontrigger.html cron-like schedule]. Each job maps to a server that you would like to query jmx attributes on. Therefore, you can setup a complex query schedule for each server by setting the cronExpression field on the Server object (by default it is every minute).
 
-For a given json file, there can be an unlimited number of servers defined within it. The servers define the hostname, port, username and password. Within each server, there can be an unlimited number of queries executed against it. Each Query executed against a server can output its results using any number of OutputWriters. jmxtrans includes several different OutputWriters that you can use.
+For a given json file, there can be an unlimited number of servers defined within it. The servers are the JVM's that you want to gather stats from and are defined by a hostname, port, username and password. 
+
+Within each server, there can be an unlimited number of JMX queries executed against it. Each Query executed against a server can output its results using any number of OutputWriters. jmxtrans includes several different OutputWriters that you can use.
 
 [http://jmxtrans.googlecode.com/svn/wiki/objmodel.png]
 
