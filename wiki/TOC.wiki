@@ -1,0 +1,13 @@
+#summary Sidebar page - Table of Contents
+#sidebar TOC
+
+  * [IntroductionToJmxTrans Introduction To JmxTrans]
+  * [Installation]
+  * [Writers]
+    * [StdoutWriter]
+    * [GraphiteWriter]
+    * [GangliaWriter]
+    * [RRDWriter]
+    * [KeyOutWriter]
+  * [BestPractices Best Practices]
+  * [FrequentlyAskedQuestions Frequently Asked Questions]
