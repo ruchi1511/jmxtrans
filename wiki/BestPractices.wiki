@@ -1,0 +1,13 @@
+#summary Best Practices
+
+= Best Practices =
+
+== JSON Organization ==
+
+The JmxTransformer will attempt to internally optimize the way that you configure the hosts in your json files. If you can imagine, putting the same host in multiple files, with different queries could result in multiple server objects being generated. However, this is *not* the case if the Server objects are all the same, but just have different queries.
+
+That said, in order to have the best experience, I suggest putting all of your queries into a single server block in the json.
+
+== Number of Threads ==
+
+If you notice that it is taking a while to get through the list of Servers and all of the queries, it might make sense to spawn more threads to handle the requests. Obviously, this also means being on a multi-core processor so that the cpu can actually do work with those threads.
