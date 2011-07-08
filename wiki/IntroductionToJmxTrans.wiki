@@ -1,0 +1,34 @@
+#summary Introduction to jmxtrans
+
+<wiki:toc max_depth="3" />
+
+= Introduction =
+
+jmxtrans is a tool which allows you to connect to any number of Java Virtual Machines (JVM's) and query them for their attributes without writing a single line of Java code. The attributes are exported via [http://www.oracle.com/technetwork/java/javase/tech/javamanagement-140525.html Java Management Extensions (JMX)]. Most Java applications have made their statistics available via this protocol and it is possible to add this to any codebase without a lot of effort. If you use the [http://static.springsource.org/spring/docs/3.0.x/spring-framework-reference/html/jmx.html SpringFramework] for your code, it can be as easy as just adding a couple of annotations to a Java class file.
+
+The query language is based on the easy to write [http://json.org/ JSON] format. This allows non-programmers access to JMX without having to know how to write Java. That makes this tool perfect for the busy Ops person.
+
+The output is defined via special classes called OutputWriters. These are a bit more involved to write because generally it means integrating Java code with a third party tool such as [http://graphite.wikidot.com/ Graphite] or [http://ganglia.sourceforge.net Ganglia]. Out of the box, jmxtrans supports several output writers and we are encouraging others to suggest new ideas by submitting requests to the [http://code.google.com/p/jmxtrans/issues/entry issue tracker].
+
+= Enabling JMX for a JVM =
+
+In order to use jmxtrans, you must first enable Java Management Extensions (JMX) on your Java Virtual Machine (JVM). We recommend that you connect to Java 6 JVM's because there are improvements to the JMX protocol that we can take advantage of, such as wildcard (*) queries.
+
+For applications behind a firewall that do not need security, add these arguments to the startup of the JVM in order to enable remote JMX connections:
+
+{{{
+-Dcom.sun.management.jmxremote.port=1105 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false
+}}}
+
+You should set the port number to any free port number on your machine that is above 1024.
+
+For more details on enabling the agent, please read:
+
+  * [http://download.oracle.com/javase/6/docs/technotes/guides/management/agent.html JMX Agent Configuration]
+  * [http://download.oracle.com/javase/6/docs/technotes/guides/management/ Monitoring and Management]
+
+= JConsole =
+
+If you are going to use jmxtrans, it is helpful to gain an understanding of JConsole. This is a good visual tool for viewing attributes in a JVM. Using this tool will help you write your jmxtrans queries.
+
+  * [http://download.oracle.com/javase/6/docs/technotes/guides/management/jconsole.html JConsole Documentation]
