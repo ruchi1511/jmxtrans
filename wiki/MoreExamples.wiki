@@ -1,4 +1,5 @@
 #summary Samples JSON
+#labels Phase-Deploy,Phase-Support
 
 = Introduction =
 
@@ -167,6 +168,59 @@ Some sample JSON, to help you monitor quickly various metrics in JVM, heap, memo
       } ],
       "obj" : "jboss.jca:service=ManagedConnectionPool,name=*",
       "attr" : [ "ConnectionCount", "ConnectionCreatedCount", "InUseConnectionCount", "MaxConnectionsInUseCount", "AvailableConnectionCount" ]
+    } ],
+    "numQueryThreads" : 2
+  } ]
+}
+}}}
+
+== Apache Tomcat AJP/HTTP Pools ==
+
+{{{
+{
+  "servers" : [ {
+    "port" : "8004",
+    "host" : "mysys.mydomain",
+    "username" : "monitor",
+    "password" : "monitor!",
+    "queries" : [ {
+      "outputWriters" : [ {
+        "@class" : "com.googlecode.jmxtrans.model.output.GraphiteWriter",
+        "settings" : {
+          "port" : 2003,
+          "host" : "mygraphite.mydomain",
+          "typeNames" : [ "name" ]
+        }
+      } ],
+      "obj" : "Catalina:type=ThreadPool,name=*",
+      "attr" : [ "currentThreadCount", "currentThreadsBusy", "" ]
+    } ],
+    "numQueryThreads" : 2
+  } ]
+}
+}}}
+
+== Apache Tomcat DataSources ==
+
+{{{
+
+{
+  "servers" : [ {
+    "port" : "8004",
+    "host" : "mysys.mydomain",
+    "username" : "monitor",
+    "password" : "monitor!",
+    "queries" : [ {
+      "outputWriters" : [ {
+        "@class" : "com.googlecode.jmxtrans.model.output.GraphiteWriter",
+        "settings" : {
+          "port" : 2003,
+          "host" : "mygraphite.mydomain",
+          "typeNames" : [ "name" ]
+        }
+      } ],
+      "obj" : "Catalina:type=DataSource,class=javax.sql.DataSource,name=*",
+      "attr" : [ "numActive", "numIdle" ]
     } ],
     "numQueryThreads" : 2
   } ]
