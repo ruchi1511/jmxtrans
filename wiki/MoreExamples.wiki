@@ -104,7 +104,7 @@ Some sample JSON, to help you monitor quickly various metrics in :
 }
 }}}
 
-== JBoss HTTP/AJP Pools ==
+== JBoss AJP/HTTP Pools ==
 
 {{{
 {
