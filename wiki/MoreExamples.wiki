@@ -3,7 +3,10 @@
 
 = Introduction =
 
-Some sample JSON, to help you monitor quickly various metrics in JVM, heap, memory-pools, threads, datasources in Tomcat and JBoss App servers.  
+Some sample JSON, to help you monitor quickly various metrics in : 
+
+  * Sun/Oracle Hotspot heap, memory-pools, threads
+  * Apache Tomcat and JBoss App servers AJP/HTTP Pools and DataSources. 
 
 = Graphite Samples =
 
@@ -11,7 +14,7 @@ Some sample JSON, to help you monitor quickly various metrics in JVM, heap, memo
   * A Graphite server is installed on *mygraphite.mydomain* where its carbon-cache collect metrics on port *2003*
 
 
-== Heap ==
+== Heap (Hostpot) ==
 
 {{{
 {
@@ -55,7 +58,7 @@ Some sample JSON, to help you monitor quickly various metrics in JVM, heap, memo
 }
 }}}
 
-== Memory Pool ==
+== Memory Pool (Hostpot) ==
 
 {{{
 {
@@ -78,7 +81,7 @@ Some sample JSON, to help you monitor quickly various metrics in JVM, heap, memo
   } ]
 }}}
 
-== Threads ==
+== Threads (Hostpot) ==
 
 {{{
 {
