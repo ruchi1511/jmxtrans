@@ -1,0 +1,79 @@
+#summary Samples JSON
+
+= Introduction =
+
+Some sample JSON, to help you monitor quickly various metrics in JVM, heap, memory-pools, threads, datasources in Tomcat and JBoss App servers.  
+
+= Graphite Samples =
+
+  * In the following samples, JVM under monitoring is on an hypothetical machine named *mysys.mydomain*, where JMX is listening port on *8004*. 
+  * A Graphite server is installed on *mygraphite.mydomain* where its carbon-cache collect metrics on port *2003*
+
+
+== Heap ==
+
+{{{
+{
+  "servers" : [ {
+    "port" : "8004",
+    "host" : "mysys.mydomain",
+    "queries" : [ {
+      "outputWriters" : [ {
+        "@class" : "com.googlecode.jmxtrans.model.output.GraphiteWriter",
+        "settings" : {
+          "port" : 2003,
+          "host" : "mygraphite.mydomain"
+        }
+      } ],
+      "obj" : "java.lang:type=Memory",
+      "attr" : [ "HeapMemoryUsage", "NonHeapMemoryUsage" ]
+    }, {
+      "outputWriters" : [ {
+        "@class" : "com.googlecode.jmxtrans.model.output.GraphiteWriter",
+        "settings" : {
+          "port" : 2003,
+          "host" : "mygraphite.mydomain"
+        }
+      } ],
+      "obj" : "java.lang:name=CMS Old Gen,type=MemoryPool",
+      "attr" : [ "Usage" ]
+    }, {
+      "outputWriters" : [ {
+        "@class" : "com.googlecode.jmxtrans.model.output.GraphiteWriter",
+        "settings" : {
+          "port" : 2003,
+          "host" : "mygraphite.mydomain",
+          "typeNames" : [ "name" ]
+        }
+      } ],
+      "obj" : "java.lang:type=GarbageCollector,name=*",
+      "attr" : [ "CollectionCount", "CollectionTime" ]
+    } ],
+    "numQueryThreads" : 2
+  } ]
+}
+}}}
+
+== Memory Pool ==
+
+{{{
+{
+  "servers" : [ {
+    "port" : "8004",
+    "host" : "mysys.mydomain",
+    "queries" : [ {
+      "outputWriters" : [ {
+        "@class" : "com.googlecode.jmxtrans.model.output.GraphiteWriter",
+        "settings" : {
+          "port" : 2003,
+          "host" : "mygraphite.mydomain",
+          "typeNames" : [ "name" ]
+        }
+      } ],
+      "obj" : "java.lang:type=MemoryPool,name=*",
+      "attr" : [ "Usage" ]
+    } ],
+    "numQueryThreads" : 2
+  } ]
+}
+
