@@ -75,7 +75,7 @@ Some sample JSON, to help you monitor quickly various metrics in JVM, heap, memo
     } ],
     "numQueryThreads" : 2
   } ]
-}
+}}}
 
 == Threads ==
 
@@ -94,6 +94,54 @@ Some sample JSON, to help you monitor quickly various metrics in JVM, heap, memo
       } ],
       "obj" : "java.lang:type=Threading",
       "attr" : [ "DaemonThreadCount", "PeakThreadCount", "ThreadCount", "TotalStartedThreadCount" ]
+    } ],
+    "numQueryThreads" : 2
+  } ]
+}
+}}}
+
+== JBoss HTTP/AJP Pools ==
+
+{{{
+{
+  "servers" : [ {
+    "port" : "8004",
+    "host" : "mysys.mydomain",
+    "queries" : [ {
+      "outputWriters" : [ {
+        "@class" : "com.googlecode.jmxtrans.model.output.GraphiteWriter",
+        "settings" : {
+          "port" : 2003,
+          "host" : "mygraphite.mydomain",
+          "typeNames" : [ "name" ]
+        }
+      } ],
+      "obj" : "jboss.web:type=ThreadPool,name=*",
+      "attr" : [ "currentThreadCount", "currentThreadsBusy", "" ]
+    } ],
+    "numQueryThreads" : 2
+  } ]
+}
+}}}
+
+== JBoss HTTP Requests ==
+
+{{{
+{
+  "servers" : [ {
+    "port" : "8004",
+    "host" : "mysys.mydomain",
+    "queries" : [ {
+      "outputWriters" : [ {
+        "@class" : "com.googlecode.jmxtrans.model.output.GraphiteWriter",
+        "settings" : {
+          "port" : 2003,
+          "host" : "mygraphite.mydomain",
+          "typeNames" : [ "name" ]
+        }
+      } ],
+      "obj" : "jboss.web:type=GlobalRequestProcessor,name=*",
+      "attr" : [ "bytesReceived", "bytesSent", "errorCount", "maxTime", "processingTime", "requestCount"  ]
     } ],
     "numQueryThreads" : 2
   } ]
