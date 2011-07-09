@@ -42,3 +42,27 @@ w2_1099.net_sf_ehcache_management_CacheStatistics.ClientCache.CacheHits	487239	1
 w2_1099.net_sf_ehcache_management_CacheStatistics.ClientCache.CacheMisses	30164	1308855201
 w2_1099.net_sf_ehcache_management_CacheStatistics.ClientCache.ObjectCount	4270	1308855201
 }}}
+
+If you don't like the classname garbage, you can alias that to something else by adding the {{{resultAlias}}} configuration to the query like this: 
+
+{{{
+"obj" : "net.sf.ehcache:type=CacheStatistics,*",
+"resultAlias": "ehcache"
+}}}
+
+Thus:
+
+{{{
+w2_1099.ehcache.ClientCache.CacheHits	487239	1308855201
+w2_1099.ehcache.ClientCache.CacheMisses	30164	1308855201
+w2_1099.ehcache.ClientCache.ObjectCount	4270	1308855201
+}}}
+
+If you want a different hostname to show up, use the {{{alias}}} configuration like this:
+
+{{{
+  "servers" : [ {
+    "host" : "w2",
+    "alias" : "w2.foo.com",
+    "port" : "1099",
+}}}
