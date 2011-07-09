@@ -30,6 +30,7 @@ Some sample JSON, to help you monitor quickly various metrics in :
         }
       } ],
       "obj" : "java.lang:type=Memory",
+      "resultAlias": "heap",
       "attr" : [ "HeapMemoryUsage", "NonHeapMemoryUsage" ]
     }, {
       "outputWriters" : [ {
@@ -40,6 +41,7 @@ Some sample JSON, to help you monitor quickly various metrics in :
         }
       } ],
       "obj" : "java.lang:name=CMS Old Gen,type=MemoryPool",
+      "resultAlias": "cmsoldgen",
       "attr" : [ "Usage" ]
     }, {
       "outputWriters" : [ {
@@ -51,6 +53,7 @@ Some sample JSON, to help you monitor quickly various metrics in :
         }
       } ],
       "obj" : "java.lang:type=GarbageCollector,name=*",
+      "resultAlias": "gc",
       "attr" : [ "CollectionCount", "CollectionTime" ]
     } ],
     "numQueryThreads" : 2
@@ -75,6 +78,7 @@ Some sample JSON, to help you monitor quickly various metrics in :
         }
       } ],
       "obj" : "java.lang:type=MemoryPool,name=*",
+      "resultAlias": "memorypool",
       "attr" : [ "Usage" ]
     } ],
     "numQueryThreads" : 2
@@ -97,6 +101,7 @@ Some sample JSON, to help you monitor quickly various metrics in :
         }
       } ],
       "obj" : "java.lang:type=Threading",
+      "resultAlias": "threads",
       "attr" : [ "DaemonThreadCount", "PeakThreadCount", "ThreadCount", "TotalStartedThreadCount" ]
     } ],
     "numQueryThreads" : 2
@@ -121,6 +126,7 @@ Some sample JSON, to help you monitor quickly various metrics in :
         }
       } ],
       "obj" : "jboss.web:type=ThreadPool,name=*",
+      "resultAlias": "connectors",
       "attr" : [ "currentThreadCount", "currentThreadsBusy", "" ]
     } ],
     "numQueryThreads" : 2
@@ -145,6 +151,7 @@ Some sample JSON, to help you monitor quickly various metrics in :
         }
       } ],
       "obj" : "jboss.web:type=GlobalRequestProcessor,name=*",
+      "resultAlias": "requests",
       "attr" : [ "bytesReceived", "bytesSent", "errorCount", "maxTime", "processingTime", "requestCount"  ]
     } ],
     "numQueryThreads" : 2
@@ -170,6 +177,7 @@ Some sample JSON, to help you monitor quickly various metrics in :
         }
       } ],
       "obj" : "jboss.jca:service=ManagedConnectionPool,name=*",
+      "resultAlias": "datasources",
       "attr" : [ "ConnectionCount", "ConnectionCreatedCount", "InUseConnectionCount", "MaxConnectionsInUseCount", "AvailableConnectionCount" ]
     } ],
     "numQueryThreads" : 2
@@ -196,6 +204,7 @@ Some sample JSON, to help you monitor quickly various metrics in :
         }
       } ],
       "obj" : "Catalina:type=ThreadPool,name=*",
+      "resultAlias": "connectors",
       "attr" : [ "currentThreadCount", "currentThreadsBusy", "" ]
     } ],
     "numQueryThreads" : 2
@@ -223,6 +232,7 @@ Some sample JSON, to help you monitor quickly various metrics in :
         }
       } ],
       "obj" : "Catalina:type=DataSource,class=javax.sql.DataSource,name=*",
+      "resultAlias": "datasources",
       "attr" : [ "numActive", "numIdle" ]
     } ],
     "numQueryThreads" : 2
