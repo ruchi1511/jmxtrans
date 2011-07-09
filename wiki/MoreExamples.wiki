@@ -147,3 +147,28 @@ Some sample JSON, to help you monitor quickly various metrics in JVM, heap, memo
   } ]
 }
 }}}
+
+== JBoss DataSources ==
+
+{{{
+
+{
+  "servers" : [ {
+    "port" : "8004",
+    "host" : "mysys.mydomain",
+    "queries" : [ {
+      "outputWriters" : [ {
+        "@class" : "com.googlecode.jmxtrans.model.output.GraphiteWriter",
+        "settings" : {
+          "port" : 2003,
+          "host" : "mygraphite.mydomain",
+	  "typeNames" : [ "name" ]
+        }
+      } ],
+      "obj" : "jboss.jca:service=ManagedConnectionPool,name=*",
+      "attr" : [ "ConnectionCount", "ConnectionCreatedCount", "InUseConnectionCount", "MaxConnectionsInUseCount", "AvailableConnectionCount" ]
+    } ],
+    "numQueryThreads" : 2
+  } ]
+}
+}}}
