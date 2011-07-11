@@ -30,6 +30,8 @@ The JmxTransformer engine is fully multithreaded. You specify the maximum number
 
 There are two sides to JmxTranformer. The input is the connection to the JMX server running in a JVM. The output is to OutputWriters. As necessary, both sides make use of connection object pools to maintain socket connections to both the input and output.
 
+On a side note, I've heard from a few people now who are using it to monitor clusters of hundreds of machines. If you have even larger clusters, please let me know!
+
 == API Mode ==
 The second mode for jmxtrans is to act as an API to build your own application for pulling data from JMX and writing it out. The Engine was written on top of this API. The Engine is how I'd use this project, but maybe you have other ideas so that is fully supported by allowing you to write your own engine.
 
