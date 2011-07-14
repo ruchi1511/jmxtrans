@@ -4,7 +4,7 @@
 
 = Introduction =
 
-The first thing you need to do is install jmxtrans. The easiest way is to use the Debian installer. Alternatively, you can install the files included in the tar.gz into a directory and run it from there.
+The first thing you need to do is install jmxtrans. The easiest way is to use the Debian installer. Alternatively, you can install the files included in the .zip into a directory and run it from there.
 
 Once you have it installed, you also need to make sure to enable remote access to JMX on the JVM's that you want to monitor.
 
