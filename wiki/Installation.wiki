@@ -14,7 +14,7 @@ There is a .deb file which you can download and install on an Ubuntu/Debian mach
 
 To install it:
   # Download the .deb package.
-  # As root: {{{dpkg -i jmxtrans_155-1_amd64.deb}}} (replace the version number)
+  # As root: {{{dpkg -i jmxtrans_199-1_amd64.deb}}} (replace the version number)
   # Enter in the JVM heap size you want: 512 (megs) is the default. The more JVM's you need to monitor, the more memory you will probably need. If you are getting OutOfMemoryError's, then increase this value by editing {{{/etc/default/jmxtrans}}}.
 
   * The application is installed in: {{{/usr/share/jmxtrans}}}
