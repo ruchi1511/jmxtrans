@@ -2,7 +2,7 @@
 
 = Generating Queries =
 
-Figuring out how to write queries is probably the most difficult part of using jmxtrans. Below is an image of JConsole looking at the metrics provided by Ehcache which is a commonly used object caching library for Java.
+Figuring out how to write queries is probably the most difficult part of using jmxtrans, but once you get the hang of it, it really isn't that difficult. Below is an image of JConsole looking at the metrics provided by Ehcache which is a commonly used object caching library for Java.
 
 [http://jmxtrans.googlecode.com/svn/wiki/ehcache-example.png]
 
