@@ -13,6 +13,29 @@ Some sample JSON, to help you monitor quickly various metrics in :
   * In the following samples, JVM under monitoring is on an hypothetical machine named *mysys.mydomain*, where JMX is listening port on *8004*. 
   * A Graphite server is installed on *mygraphite.mydomain* where its carbon-cache collect metrics on port *2003*
 
+== System (Hotspot) ==
+
+{{{
+{
+  "servers" : [ {
+    "port" : "8004",
+    "host" : "mysys.mydomain",
+    "queries" : [ {
+      "outputWriters" : [ {
+        "@class" : "com.googlecode.jmxtrans.model.output.GraphiteWriter",
+        "settings" : {
+          "port" : 2003,
+          "host" : "mygraphite.mydomain"
+        }
+      } ],
+      "obj" : "java.lang:type=OperatingSystem",
+      "attr" : [ "SystemLoadAverage", "AvailableProcessors", "TotalPhysicalMemorySize", "FreePhysicalMemorySize", "TotalSwapSp
+aceSize", "FreeSwapSpaceSize", "OpenFileDescriptorCount", "MaxFileDescriptorCount" ]
+    } ],
+    "numQueryThreads" : 2
+  } ]
+}
+}}}
 
 == Heap (Hostpot) ==
 
