@@ -62,7 +62,7 @@ If you are going to use jmxtrans, it is helpful to gain an understanding of JCon
 
 = Using Ant Vars =
 
-Ant like variables could be used in json files sicne v239, so you could avoid hardcoding some values, like graphite servers.
+Ant like variables could be used in json files since *v239*, so you could avoid hardcoding some values, like graphite servers.
 
 ===Before===
 
