@@ -2,6 +2,7 @@
 #sidebar TOC
 
   * [IntroductionToJmxTrans Introduction To JmxTrans]
+  * [Changelog]
   * [Installation]
   * [Queries]
     * [MoreExamples]
