@@ -1,0 +1,12 @@
+Source: @PACKAGE@
+Build-Depends: debhelper (>= 7)
+Maintainer: Jon Stevens <latchkey@gmail.com>
+Standards-Version: 3.9.1
+
+Package: @PACKAGE@
+Architecture: all
+Section: admin
+Priority: optional
+Depends: ${misc:Depends}, java2-runtime
+Description: @FULL_VERSION@ - @PACKAGE@
+ dependency package, installs @PACKAGE@

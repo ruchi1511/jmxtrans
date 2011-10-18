@@ -1,0 +1,2 @@
+@PACKAGE@: new-package-should-close-itp-bug
+@PACKAGE@: maintainer-script-needs-depends-on-adduser preinst
