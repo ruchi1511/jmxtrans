@@ -59,3 +59,61 @@ For more details on enabling the agent, please read:
 If you are going to use jmxtrans, it is helpful to gain an understanding of JConsole. This is a good visual tool for viewing attributes in a JVM. Using this tool will help you write your jmxtrans queries.
 
   * [http://download.oracle.com/javase/6/docs/technotes/guides/management/jconsole.html JConsole Documentation]
+
+= Using Ant Vars =
+
+Ant like variables could be used in json files sicne v239, so you could avoid hardcoding some values, like graphite servers.
+
+===Before===
+
+{{{
+{
+  "servers" : [ {
+    "port" : "1099",
+    "host" : "w2",
+    "queries" : [ {
+      "obj" : "java.lang:type=Memory",
+      "attr" : [ "HeapMemoryUsage", "NonHeapMemoryUsage" ],
+      "outputWriters" : [ {
+        "@class" : "com.googlecode.jmxtrans.model.output.GraphiteWriter",
+        "settings" : {
+          "port" : 2003,
+          "host" : "192.168.192.133"
+        }
+      } ]
+    } ]
+  } ]
+}
+}}}
+
+===Now===
+
+{{{
+{
+  "servers" : [ {
+    "port" : "${myserverport}",
+    "host" : "${myserverhost}",
+    "queries" : [ {
+      "obj" : "java.lang:type=Memory",
+      "attr" : [ "HeapMemoryUsage", "NonHeapMemoryUsage" ],
+      "outputWriters" : [ {
+        "@class" : "com.googlecode.jmxtrans.model.output.GraphiteWriter",
+        "settings" : {
+          "port" : "${mygraphiteport}",
+          "host" : "${mygraphitehost}"
+        }
+      } ]
+    } ]
+  } ]
+}
+}}}
+
+===Notice===
+
+Double-quotes (") should be using even when providing int values, like port, it's mandatory for StringResolver, String to Int conversion will be done internally.
+ 
+Variables should be provided via -D for example via JMXTRANS_OPTS in jmxtrans.conf :
+
+{{{
+JMXTRANS_OPTS="-Dmyserverport=1099 -Dmyserverhost=w2 -Dmygraphiteport=2003 -Dmygraphitehost=192.168.192.133"
+}}}
