@@ -14,11 +14,25 @@ There is a .deb file which you can download and install on an Ubuntu/Debian mach
 
 To install it:
   # Download the .deb package.
-  # As root: {{{dpkg -i jmxtrans_199-1_amd64.deb}}} (replace the version number)
+  # As root: {{{dpkg -i jmxtrans_239-1_amd64.deb}}} (replace the version number)
   # Enter in the JVM heap size you want: 512 (megs) is the default. The more JVM's you need to monitor, the more memory you will probably need. If you are getting OutOfMemoryError's, then increase this value by editing {{{/etc/default/jmxtrans}}}.
 
   * The application is installed in: {{{/usr/share/jmxtrans}}}
   * Configuration options are stored in: {{{/etc/default/jmxtrans}}}
+  * There is an init script in: {{{/etc/init.d/jmxtrans}}} (this wraps the {{{jmxtrans.sh}}} discussed below)
+  * Put your .json files into: {{{/var/lib/jmxtrans}}}
+
+= Installing the RPM =
+
+There is a .rpm file which you can download and install on an Fedora/CentOS/RHEL machine. This makes setting up the application trivial and is highly recommended. It also makes upgrades painless as well.
+
+To install it:
+  # Download the .rpm package.
+  # As root: {{{rpm -i jmxtrans_239-0.noarch.rpm}}} (replace the version number)
+  # Enter in the JVM heap size you want: 512 (megs) is the default. The more JVM's you need to monitor, the more memory you will probably need. If you are getting OutOfMemoryError's, then increase this value by editing {{{/etc/sysconfig/jmxtrans}}}.
+
+  * The application is installed in: {{{/usr/share/jmxtrans}}}
+  * Configuration options are stored in: {{{/etc/sysconf/jmxtrans}}}
   * There is an init script in: {{{/etc/init.d/jmxtrans}}} (this wraps the {{{jmxtrans.sh}}} discussed below)
   * Put your .json files into: {{{/var/lib/jmxtrans}}}
 
