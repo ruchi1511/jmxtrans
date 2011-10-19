@@ -1,5 +1,9 @@
 #summary Changelog.
 
+= v250 =
+
+  * log level is now configurable on /etc/default/jmxtrans or /etc/sysconfig/jmxtrans in LOG_LEVEL variable. Default value stay debug
+
 = v239 =
 
   * jmxtrans multi-instances support by providing PIDFILE vars to jmxtrans.sh and JMXTRANS_OPTS passed to Java command line
