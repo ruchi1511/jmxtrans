@@ -2,7 +2,7 @@
 
 = v250 =
 
-  * log level is now configurable on /etc/default/jmxtrans or /etc/sysconfig/jmxtrans in LOG_LEVEL variable. Default value stay debug
+  * log level is now configurable on /etc/default/jmxtrans or /etc/sysconfig/jmxtrans in LOG_LEVEL variable. Default value stay debug. If you're using JMXTrans zip, you should now provided it with -Djmxtrans.log.level=debug on Java command line. 
 
 = v239 =
 
