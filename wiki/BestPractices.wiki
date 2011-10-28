@@ -52,14 +52,14 @@ java -Dcom.sun.management.jmxremote=true -Dcom.sun.management.jmxremote.ssl=fals
 -Dcom.sun.management.jmxremote.access.file=/opt/myapp/etc/jmx.access  \ com.mycorp.myproduct.MyApp start
 }}}
 
-jmx.access file will contain two roles/accounts, *collector* (read-only) and *administrator* (full-access) :
+jmx.access file will contains two roles/accounts, *collector* (read-only) and *administrator* (full-access) :
 
 {{{
 collector   readonly
 administrator   readwrite
 }}}
 
-jmx.password file contain login/password :
+jmx.password file will contains login/password :
 
 
 {{{
