@@ -23,8 +23,8 @@ In JSON, add *username* and *password* attributes to server, next to *host* and 
   "servers" : [ {
     "port" : "1099",
     "host" : "w2",
-    "username" : "auser",
-    "password" : "apassword",
+    "username" : "collector",
+    "password" : "1234567890",
     "queries" : [ {
       "obj" : "java.lang:type=Memory",
       "attr" : [ "HeapMemoryUsage", "NonHeapMemoryUsage" ],
@@ -41,4 +41,26 @@ In JSON, add *username* and *password* attributes to server, next to *host* and 
     } ]
   } ]
 }
+}}}
+
+On JMX side, you could set it with *com.sun.management.jmxremote.authenticate*, *com.sun.management.jmxremote.password.file*, *com.sun.management.jmxremote.access.file* parameter values ie :
+
+{{{
+java -Dcom.sun.management.jmxremote=true -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=true -Dcom.sun.management.jmxremote.password.file=/opt/myapp/etc/jmx.password -Dcom.sun.management.jmxremote.access.file=/opt/myapp/etc/jmx.access  com.mycorp.myproduct.MyApp start
+}}}
+
+jmx.access will be :
+
+{{{
+collector   readonly
+administrator   readwrite \
+              create javax.management.monitor.*,javax.management.timer.* \
+              unregister
+}}}
+
+jmx.password 
+
+{{{
+collector	1234567890
+administrator	5c10b5b2cd673a0616d529aa5234b12ee7153808
 }}}
