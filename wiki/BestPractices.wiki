@@ -11,3 +11,32 @@ That said, in order to have the best experience, I suggest putting all of your q
 == Number of Threads ==
 
 If you notice that it is taking a while to get through the list of Servers and all of the queries, it might make sense to spawn more threads to handle the requests. Obviously, this also means being on a multi-core processor so that the cpu can actually do work with those threads.
+
+== Security ==
+
+JMX could be protecte via login/password. This allow to define different kind of users, ie some with read-write access, and others with just read access. JMXTrans didn't need write access, so it's a good practice to use a dedicated read-only login for it.
+
+{{{
+{
+  "servers" : [ {
+    "port" : "1099",
+    "host" : "w2",
+    "username" : "auser",
+    "password" : "apassword",
+    "queries" : [ {
+      "obj" : "java.lang:type=Memory",
+      "attr" : [ "HeapMemoryUsage", "NonHeapMemoryUsage" ],
+      "outputWriters" : [ {
+        "@class" : "com.googlecode.jmxtrans.model.output.RRDToolWriter",
+        "settings" : {
+            "templateFile" : "heapmemory-rrd-template.xml",
+            "outputFile" : "target/heap.rrd",
+            "binaryPath" : "/opt/local/bin",
+            "debug" : true,
+            "generate" : true
+        }
+      } ]
+    } ]
+  } ]
+}
+}}}
