@@ -14,7 +14,7 @@ If you notice that it is taking a while to get through the list of Servers and a
 
 == Security ==
 
-JMX could be protecte via login/password. This allow to define different kind of users, ie some with read-write access, and others with just read access. JMXTrans didn't need write access, so it's a good practice to use a dedicated read-only login for it.
+JMX can be protected via login/password. This allow you to define different kind of users, some with read-write access, and others with just read access. JMXTrans doesn't need write access (in fact, JMXTrans code is read-only), so it is a good practice to use a dedicated read-only login for it.
 
 In JSON, add *username* and *password* attributes to server, next to *host* and *port* :
 
