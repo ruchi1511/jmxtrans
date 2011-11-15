@@ -1,5 +1,9 @@
 #summary Changelog.
 
+= v? =
+
+  * Issue #14. Fixed file descriptor leakage in RRDToolWriter.
+
 = v250 =
 
   * log level is now configurable on /etc/default/jmxtrans or /etc/sysconfig/jmxtrans in LOG_LEVEL variable. Default value stay debug. If you're using JMXTrans zip, you should now provide it with -Djmxtrans.log.level=debug on Java command line. 
