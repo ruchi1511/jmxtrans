@@ -2,6 +2,7 @@
 
 = v? =
 
+  * Issue #15. KeyOutWriter was using a static log instance so it would combine logs together. Duh.
   * Issue #14. Fixed file descriptor leakage in RRDToolWriter.
   * r261. Added better support for weblogic.
 
