@@ -3,6 +3,7 @@
 = v? =
 
   * Issue #14. Fixed file descriptor leakage in RRDToolWriter.
+  * r261. Added better support for weblogic.
 
 = v250 =
 
