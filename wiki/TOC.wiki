@@ -4,6 +4,7 @@
   * [IntroductionToJmxTrans Introduction To JmxTrans]
   * [ChangeLog]
   * [Installation]
+  * [Source]
   * [Queries]
     * [MoreExamples]
   * [OutputWriters]
